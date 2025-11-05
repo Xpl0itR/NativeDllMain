@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NativeDllMain</id>
+    <description>A static library for NativeAOT projects, providing a native DllMain implementation that safely invokes a managed entrypoint after the Windows loader lock is released</description>
+    <version></version>
+    <authors>Xpl0itR</authors>
+    <copyright>Copyright © 2025 Xpl0itR</copyright>
+    <license type="expression">MPL-2.0</license>
+    <repository type="git" url="https://github.com/Xpl0itR/NativeDllMain.git" branch="refs/heads/master" commit="$sha$" />
+  </metadata>
+  <files>
+    <file src="NativeDllMain.targets" target="build/" />
+    <file src="../bin/x64/dllmain.obj" target="content/win-x64/" />
+    <file src="../bin/x64/dllmain.alt.obj" target="content/win-x64/" />
+    <file src="../bin/x86/dllmain.obj" target="content/win-x86/" />
+    <file src="../bin/x86/dllmain.alt.obj" target="content/win-x86/" />
+  </files>
+</package>

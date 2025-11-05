@@ -1,0 +1,37 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Choose>
+    <When Condition="'$(RuntimeIdentifier)' == 'win-x64' Or '$(RuntimeIdentifier)' == 'win-x86'">
+
+      <PropertyGroup Condition="'$(DllMainSymbol)' == ''">
+        <DllMainSymbol Condition="'$(RuntimeIdentifier)' == 'win-x64'">DllMain</DllMainSymbol>
+        <DllMainSymbol Condition="'$(RuntimeIdentifier)' == 'win-x86'">_DllMain@12</DllMainSymbol>
+      </PropertyGroup>
+
+      <PropertyGroup Condition="'$(DllMainObj)' == ''">
+        <_Alt Condition="'$(DllMainUseQueueUserApc)' == 'true'">.alt</_Alt>
+        <DllMainObj>$(MSBuildThisFileDirectory)../content/$(RuntimeIdentifier)/dllmain$(_Alt).obj</DllMainObj>
+      </PropertyGroup>
+
+      <ItemGroup>
+        <NativeLibrary Include="$(DllMainObj)" />
+        <LinkerArg Include="/INCLUDE:$(DllMainSymbol)" />
+      </ItemGroup>
+
+    </When>
+  </Choose>
+
+  <Target Name="RemoveDllMainStub" AfterTargets="SetupOSSpecificProps">
+
+    <PropertyGroup>
+      <_DllMainStub>$(IlcSdkPath)dllmain$(ObjectSuffix)</_DllMainStub>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <NativeLibrary Remove="$(_DllMainStub)" />
+      <LinkerArg Remove="&quot;$(_DllMainStub)&quot;" />
+    </ItemGroup>
+
+  </Target>
+
+</Project>
